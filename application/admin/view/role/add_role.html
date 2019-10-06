@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{:config('title.add_role')}</title>
+        <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css"/>
+        <style>
+            div{
+                margin-bottom:5px;
+            }
+        </style>
+        <script type="text/javascript">
+            window.onload = function() {
+                document.getElementsByName('r_name')[0].focus();
+            }
+        </script>
+    </head>
+    <body>
+        <a href="{$referer}">返回</a>
+        <div id="container">
+            <div><h1>添加角色</h1></div>
+            <form method="post">
+                <input type="hidden" name="token" value="{$token}"/>
+                <div><input type="text" name="r_name" placeholder="请输入角色名称" /></div>
+                <div><input type="submit" value="{:config('button.add_role')}" id='add'/></div>
+            </form>
+        </div>
+    </body>
+</html>

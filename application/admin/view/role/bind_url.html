@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.bind_url')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css"/>
+    <script type="text/javascript">
+        window.onload = function() {
+            var container = document.getElementById('url_list');
+            var role = document.getElementsByName('r_name')[0];
+
+            if(window.XMLHttpRequest) {
+                var hr = new XMLHttpRequest();
+                hr.open('get', 'bindUrl?r_id=' + role.value, true);
+                hr.send();
+                hr.onreadystatechange = function() {
+                    if(hr.readyState == 4 && hr.status == 200) {
+                        var response = JSON.parse(hr.responseText);
+                        createEle(container, response.data, 'input', 'checkbox', 'url[]');
+                    }
+                }
+                role.onchange = function() {
+                    hr.open('get', 'bindUrl?r_id=' + this.value, true);
+                    hr.send();
+                    hr.onreadystatechange = function() {
+                        if(hr.readyState == 4 && hr.status == 200) {
+                            var response = JSON.parse(hr.responseText);
+                            container.innerHTML = '';
+                            createEle(container, response.data, 'input', 'checkbox', 'url[]');
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        function createEle(container, data, eleType, type, name) {
+            for(var i = 0, len = data.length; i < len; i ++) {
+                var parent = document.createElement('div');
+                var temp = document.createElement(eleType);
+                var text = document.createTextNode(data[i].url);
+                temp.type = type;
+                temp.name = name;
+                temp.value = data[i].id;
+                if(data[i].checked == 1) {
+                    temp.checked = true;
+                }
+                parent.appendChild(temp);
+                if(type == 'checkbox' || type == 'radio') {
+                    parent.appendChild(text);
+                }
+                container.appendChild(parent);
+            }
+        }
+    </script>
+</head>
+<body>
+<a href="{$referer}">返回</a>
+    <div id="container">
+        <h1>{:config('title.bind_url')}</h1>
+        <form method="post">
+            <input type="hidden" name="token" value="{$token}"/>
+            <div>
+                <h3>请选择:</h3>
+                <select name="r_name">
+                    {foreach $role_list as $v}
+                    {if $v['id'] == session('bind_url_rid')}
+                    <option value="{$v['id']}" selected="true"/>{$v['r_name']}
+                    {else}
+                        <option value="{$v['id']}" />{$v['r_name']}
+                    {/if}
+                    {/foreach}
+                </select>
+            </div>
+            <div>
+                <h3>为角色绑定url</h3>
+                <div id="url_list"></div>
+            </div>
+
+            <div><input type="submit" value="{:config('button.confirm')}" id="submit"/></div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+#container {
+    margin: 100px auto;
+    text-align: center;
+
+}
+ul {
+    list-style: none;
+    broder:1px solid #ccc;
+}
+ul li {
+    float:left;
+    margin-right:10px;
+}
+#submit {
+    margin-top:5px;
+}

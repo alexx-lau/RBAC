@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.register')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css">
+    <script type="text/javascript">
+        window.onload = function() {
+            var img = document.getElementById('valid_code');
+            img.src = 'getValidCode?' + Math.random();
+            document.getElementById('valid_code').onclick = function() {
+                this.src = "getValidCode?" + Math.random();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <div>已经有账号了？去<a href="login">登录</a>吧</div>
+        <h1>注册用户</h1>
+        <form method="post">
+            <input type="hidden" name="token" value="{$token}">
+            <div><input type="text" name="username" placeholder="请输入您的用户名" /> </div>
+            <div><input type="password" name="password" placeholder="请输入密码"/></div>
+            <div><input type="password" name="re_password" placeholder="请再输入一次密码"/></div>
+            <div><input type="text" name="code" placeholder="请输入验证码"/></div>
+            <div><img src="getValidCode" id="valid_code"/></div>
+            <div><input type="submit" value="注册"/></div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.role_list')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css" />
+
+</head>
+<body>
+    <a href="{$referer}">返回</a>
+    <div id="container">
+        <h1>角色列表</h1>
+        <table border="1" width="600" align="center">
+            <tr><th>ID</th><th>角色名称</th><th>创建时间</th><th>操作</th></tr>
+            {foreach $role_list as $role}
+            <tr><td>{$role['id']}</td><td>{$role['r_name']}</td><td>{$role['c_time']}</td><td><a href="editRole/id/{$role['id']}">修改</a>|<a href="delRole/id/{$role['id']}/count/{$count - 1}/page/{$page}">删除</a></td></tr>
+            {/foreach}
+        </table>
+        {$role_list|raw}
+    </div>
+
+</body>
+</html>

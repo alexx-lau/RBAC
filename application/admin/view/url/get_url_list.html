@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.url_list')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css" />
+
+</head>
+<body>
+    <a href="{$referer}">返回</a>
+    <div id="container">
+        <h1>{:config('title.url_list')}</h1>
+        <table border="1" width="600" align="center">
+            <tr><th>ID</th><th>url地址</th><th>操作</th></tr>
+            {foreach $url_list as $url}
+            <tr>
+                <td>{$url['id']}</td><td>{$url['url']}</td>
+                <td>
+
+                    {if !isset($url['ignore_url']) || $url['ignore_url'] == 1}
+                    <a href="ignoreUrl/id/{$url['id']}">忽略</a>
+                    {else}
+                    <a href="ignoreUrl/id/{$url['id']}">不忽略</a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        </table>
+        {$url_list|raw}
+    </div>
+
+</body>
+</html>

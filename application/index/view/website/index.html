@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.index')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css">
+</head>
+<body>
+    <div>
+        <ul>
+            <li><a href="{:url('innerPage1')}">第一个页面</a></li>
+            <li><a href="{:url('innerpage2')}">第二个页面</a></li>
+            <li><a href="{:url('innerPage3')}">第三个页面</a></li>
+            <li><a href="{:url('aboutUs')}">关于我们</a></li>
+            <li><a href="{:url('contactUs')}">联系我们</a></li>
+        </ul>
+        <!--<div style="float:left;margin-right:3px;"><a href="#">第一个页面</a></div>-->
+        <!--<div style="float:left;margin-right:3px;"><a href="#">第二个页面</a></div>-->
+        <!--<div style="float:left;margin-right:3px;"><a href="#">第三个页面</a></div>-->
+        <!--<div style="float:left;margin-right:3px;"><a href="#">关于我们</a></div>-->
+        <!--<div style="float:left;margin-right:3px;"><a href="#">联系我们</a></div>-->
+    </div>
+    <div style="clear:both"></div>
+    {if !empty(session($prefix . 'userinfo'))}
+        <div style="float: right;margin-left:5px;"><a href="{:url('User/personalCenter')}">个人中心</a></div>
+        <div style="float: right">您好，{:session($prefix . 'userinfo')['username']}，欢迎回来&nbsp;&nbsp;<a href="{:url('User/logout')}">退出登录</a></div>
+    {else}
+        <div style="float: right"><a href="{:url('User/login')}">登录</a></div>
+    {/if}
+    <div id="container">
+        <h1>{:config('title.index')}</h1>
+        <div>这是网站的首页，上面将会有一些超链接到其他页面，<br />是否能够访问这些页面取决于当前用户的角色</div>
+    </div>
+
+</body>
+</html>

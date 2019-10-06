@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.edit_role')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css" />
+</head>
+<body>
+    <a href="{$referer}">返回</a>
+    <div id="container">
+
+       <h1>{:config('title.edit_role')}</h1>
+        <form method="post" action="editRole/id/{$role_info['id']}">
+            <input type="hidden" name="token" value="{$token}"/>
+            <div class="inner">ID:<span>{$role_info['id']}</span></div>
+            <div class="inner">角色名称:<input type="text" name="r_name" value="{$role_info['r_name']}" /></div>
+            <div class="inner">添加时间:<span>{$role_info['c_time']}</span></div>
+            <div class="inner">修改时间:<span>{$role_info['e_time']}</span></div>
+            <div class="inner"><input type="submit" value="修改" /></div>
+        </form>
+
+    </div>
+</body>
+</html>

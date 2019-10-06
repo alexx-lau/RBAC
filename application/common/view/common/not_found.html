@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$title}</title>
+</head>
+<body>
+    <div style="float:left;border:1px solid #ccc; "><a href="{:url('index/website/index')}">回到首页</a></div>
+    <div style="clear:both;"></div>
+    <div style="float:right;margin-right:200px; margin-top:-20px;">
+        {if isset($redirect) && !empty(session('userinfo'))}
+        <a href="{$redirect}">退出登录</a>
+        {else}
+        <a href="{:url('index/user/login')}">登录</a>
+        {/if}
+    </div>
+    <div>
+        {if isset($userinfo)}
+        {$userinfo['username']}，
+        {else}
+        尊敬的来访者，
+        {/if}
+        您没有权限访问该页面，请和管理员联系获取访问权限
+    </div>
+
+</body>
+</html>

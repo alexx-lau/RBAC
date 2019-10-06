@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.personal_center')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css">
+</head>
+<body>
+<div id="container">
+
+    <h1>{:config('title.personal_center')}</h1>
+    <div>用户名：<span>{:session($prefix . 'userinfo')['username']}</span></div>
+    <div>注册日期：<span>{:session($prefix . 'userinfo')['reg_time']}</span></div>
+    <div><a href="changePassword" style="margin-right:5px;">修改</a>密码</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('title.authorize_user')}</title>
+    <link rel="stylesheet" href="{:config('path.__PUBLIC__')}/css/main.css"/>
+</head>
+<body>
+    <a href="{$referer}">返回</a>
+    <div id="container">
+        <h1>{:config('title.authorize_user')}</h1>
+        <form method="post">
+            <input type="hidden" name="token" value="{$token}"/>
+            <div>
+                <h3>请选择用户:</h3>
+                <div>
+                    {foreach $user_list as $v}
+                        <input type="checkbox" name="username[]" value="{$v['id']}">
+                            {$v['username']}
+                        </input>
+                    {/foreach}
+                </div>
+            </div>
+            <div><input type="submit" value="{:config('button.confirm')}" /></div>
+        </form>
+    </div>
+
+</body>
+</html>
