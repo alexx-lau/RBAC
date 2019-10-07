@@ -36,7 +36,7 @@ class Common extends Controller {
      * @var array
      * @desc 不参与控制的方法名
      */
-    protected $ignore = ['index', 'login', 'register', 'logou', '', 'logout', 'getValidCode'];
+    protected $ignore = [];
 
     /**
      * @desc 当前项目名称
@@ -49,9 +49,14 @@ class Common extends Controller {
      */
     protected function initialize() {
         $this->addUrlAutomatic();
-
+		$this->ignore = config('keywords.ignore');
         $currentUrl = $this->request->url();
-        $this->prefix = explode('/', ltrim($currentUrl, '/'))[0];
+        $temp = explode('/', trim($currentUrl, '/'));
+	    if(count($temp)  < 3) {
+	    	$this->prefix = config('keywords.front_side');
+	    } else {
+	    	$this->prefix = $temp[2];
+	    }
         if(!empty(session($this->prefix . 'userinfo'))) {
             if(empty(session($this->prefix . 'userinfo')['current_url']) || strtolower($this->prefix) != strtolower(session($this->prefix . 'userinfo')['current_url'])) {
                 session($this->prefix . 'userinfo', null);
@@ -73,6 +78,7 @@ class Common extends Controller {
         }
 
         $url = $this->request->path();
+        //访问后台管理页面
         if(false !== stripos($url, 'admin')) {
             if(empty(session($this->prefix . 'userinfo')) &&
                 (false === stripos($this->request->path(), 'login')) &&
@@ -84,6 +90,9 @@ class Common extends Controller {
             }
         }
         $temp = $this->getUrlInfo($this->request->url());
+        if($temp[count($temp) - 1] == 'public') {
+        	$temp[count($temp) - 1] = 'index';
+        }
         if(empty(session($temp[count($temp) - 1] . '_referer'))) {
             $referer = '';
             if(isset($_SERVER['HTTP_REFERER'])) {
@@ -162,6 +171,9 @@ class Common extends Controller {
             return false;
         }
         $temp = $this->getUrlInfo($arg);
+        if(count($temp) < 3) {
+        	$temp[count($temp) - 1] = config('keywords.front_side');
+        }
         session($temp[count($temp) - 1] . '_referer', null);
         return true;
     }
@@ -175,7 +187,10 @@ class Common extends Controller {
         if(empty($arg)) {
             return false;
         }
-        return explode('/', substr($arg, 0, -5));
+        if(false !== stripos($arg, '.html')) {
+	        return explode('/', substr($arg, 0, -5));
+        }
+        return explode('/', trim($arg, '/'));
     }
 
     /**

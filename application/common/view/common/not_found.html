@@ -8,7 +8,7 @@
     <div style="float:left;border:1px solid #ccc; "><a href="{:url('index/website/index')}">回到首页</a></div>
     <div style="clear:both;"></div>
     <div style="float:right;margin-right:200px; margin-top:-20px;">
-        {if isset($redirect) && !empty(session('userinfo'))}
+        {if isset($redirect) && !empty(session($prefix . 'userinfo'))}
         <a href="{$redirect}">退出登录</a>
         {else}
         <a href="{:url('index/user/login')}">登录</a>
